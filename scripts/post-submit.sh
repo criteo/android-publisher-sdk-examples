@@ -1,3 +1,7 @@
 #!/bin/bash
 
-./pre-submit.sh
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+./scripts/pre-submit.sh
