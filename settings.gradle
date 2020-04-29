@@ -1,0 +1,2 @@
+include ':appbidding_googleadmanager'
+rootProject.name='CriteoSamples'
