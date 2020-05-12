@@ -28,12 +28,10 @@
 
   </LinearLayout>
 
-  <com.google.android.gms.ads.doubleclick.PublisherAdView
-    android:id="@+id/publisherAdView"
+  <FrameLayout
+    android:id="@+id/publisherAdViewContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:adSize="BANNER"
-    app:adUnitId="/6499/example/banner"
-    app:layout_constraintBottom_toBottomOf="parent" />
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

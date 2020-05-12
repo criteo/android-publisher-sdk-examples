@@ -1,7 +1,15 @@
 package com.criteo.publisher.samples.appbidding_googleadmanager;
 
+import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.CRITEO_BANNER_AD_UNIT;
+import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.CRITEO_INTERSTITIAL_AD_UNIT;
+import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.GAM_BANNER_AD_UNIT_ID;
+import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.GAM_INTERSTITIAL_AD_UNIT_ID;
+
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import com.criteo.publisher.Criteo;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
@@ -16,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    publisherAdView = findViewById(R.id.publisherAdView);
+    publisherAdView = new PublisherAdView(this);
+    publisherAdView.setAdSizes(AdSize.BANNER);
+    publisherAdView.setAdUnitId(GAM_BANNER_AD_UNIT_ID);
+    FrameLayout publisherAdViewContainer = (FrameLayout)findViewById(R.id.publisherAdViewContainer);
+    publisherAdViewContainer.addView(publisherAdView);
 
     loadInterstitial();
 
@@ -31,14 +43,22 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void displayBanner() {
-    PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+
+    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_BANNER_AD_UNIT);
+
+    PublisherAdRequest adRequest = builder.build();
     publisherAdView.loadAd(adRequest);
   }
 
   private void loadInterstitial() {
     publisherInterstitialAd = new PublisherInterstitialAd(this);
-    publisherInterstitialAd.setAdUnitId("/6499/example/interstitial");
-    PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+    publisherInterstitialAd.setAdUnitId(GAM_INTERSTITIAL_AD_UNIT_ID);
+    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+
+    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_INTERSTITIAL_AD_UNIT);
+
+    PublisherAdRequest adRequest = builder.build();
     publisherInterstitialAd.loadAd(adRequest);
   }
 
