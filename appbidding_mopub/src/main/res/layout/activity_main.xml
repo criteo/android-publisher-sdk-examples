@@ -6,4 +6,32 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <Button
+      android:id="@+id/displayBannerButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="80dp"
+      android:text="Display Banner" />
+
+    <Button
+      android:id="@+id/displayInterstitialButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:text="Display Interstitial" />
+
+  </LinearLayout>
+
+  <com.mopub.mobileads.MoPubView
+    android:id="@+id/mopubView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
