@@ -15,13 +15,19 @@
     <meta-data
       android:name="com.google.android.gms.ads.AD_MANAGER_APP"
       android:value="true" />
-    <activity android:name=".MainActivity">
+    <activity android:name=".MainActivity"
+      android:label="CriteoSample - Google Ad Manager">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
+    <activity android:name=".BannerActivity"
+      android:parentActivityName=".MainActivity"
+      android:label="Banner Sample - Google Ad Manager"></activity>
+    <activity android:name=".InterstitialActivity"
+      android:parentActivityName=".MainActivity"
+      android:label="Interstitial Sample - Google Ad Manager"></activity>
   </application>
 
 </manifest>

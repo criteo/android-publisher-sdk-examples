@@ -1,70 +1,43 @@
 package com.criteo.publisher.samples.appbidding_googleadmanager;
 
-import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.CRITEO_BANNER_AD_UNIT;
-import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.CRITEO_INTERSTITIAL_AD_UNIT;
-import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.GAM_BANNER_AD_UNIT_ID;
-import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSampleApplication.GAM_INTERSTITIAL_AD_UNIT_ID;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.criteo.publisher.Criteo;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
-import com.google.android.gms.ads.doubleclick.PublisherAdView;
-import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-  private PublisherAdView publisherAdView;
-  private PublisherInterstitialAd publisherInterstitialAd;
+  private final Map<String, Class<? extends Activity>> samples = new LinkedHashMap<>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    publisherAdView = new PublisherAdView(this);
-    publisherAdView.setAdSizes(AdSize.BANNER);
-    publisherAdView.setAdUnitId(GAM_BANNER_AD_UNIT_ID);
-    FrameLayout publisherAdViewContainer = (FrameLayout)findViewById(R.id.publisherAdViewContainer);
-    publisherAdViewContainer.addView(publisherAdView);
+    samples.put("Banner Sample", BannerActivity.class);
+    samples.put("Interstitial Sample", InterstitialActivity.class);
 
-    loadInterstitial();
-
-    findViewById(R.id.displayBannerButton).setOnClickListener(v -> displayBanner());
-    findViewById(R.id.displayInterstitialButton).setOnClickListener(v -> displayInterstitial());
+    initListView();
   }
 
-  @Override
-  protected void onDestroy() {
-    publisherAdView.destroy();
-    super.onDestroy();
+  private void initListView() {
+    List<String> list = new ArrayList<>(samples.keySet());
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        android.R.layout.simple_list_item_1, list);
+
+    ListView listView = findViewById(R.id.listView);
+    listView.setAdapter(adapter);
+
+    listView.setOnItemClickListener((parent, view, position, id) -> {
+      Intent intent = new Intent(this, samples.get(adapter.getItem(position)));
+      startActivity(intent);
+    });
   }
 
-  private void displayBanner() {
-    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
-
-    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_BANNER_AD_UNIT);
-
-    PublisherAdRequest adRequest = builder.build();
-    publisherAdView.loadAd(adRequest);
-  }
-
-  private void loadInterstitial() {
-    publisherInterstitialAd = new PublisherInterstitialAd(this);
-    publisherInterstitialAd.setAdUnitId(GAM_INTERSTITIAL_AD_UNIT_ID);
-    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
-
-    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_INTERSTITIAL_AD_UNIT);
-
-    PublisherAdRequest adRequest = builder.build();
-    publisherInterstitialAd.loadAd(adRequest);
-  }
-
-  private void displayInterstitial() {
-    if (publisherInterstitialAd.isLoaded()) {
-      publisherInterstitialAd.show();
-    }
-  }
 }
