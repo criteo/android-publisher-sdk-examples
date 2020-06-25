@@ -1,11 +1,13 @@
 package com.criteo.publisher.samples.appbidding_mopub;
 
+import static com.criteo.publisher.samples.appbidding_mopub.CriteoSampleApplication.CRITEO_INTERSTITIAL_AD_UNIT;
 import static com.criteo.publisher.samples.appbidding_mopub.CriteoSampleApplication.MOPUB_INTERSTITIAL_AD_UNIT_ID;
 
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.criteo.publisher.Criteo;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.mopub.mobileads.MoPubInterstitial.InterstitialAdListener;
@@ -62,6 +64,7 @@ public class InterstitialActivity extends AppCompatActivity {
 
       }
     });
+    Criteo.getInstance().setBidsForAdUnit(moPubInterstitial, CRITEO_INTERSTITIAL_AD_UNIT);
     moPubInterstitial.load();
   }
 
