@@ -23,7 +23,11 @@
     <activity
       android:label="Banner Sample - Standalone"
       android:name=".BannerActivity"
-      android:parentActivityName=".MainActivity"></activity>
+      android:parentActivityName=".MainActivity" />
+    <activity
+      android:label="Interstitial Sample - Standalone"
+      android:name=".InterstitialActivity"
+      android:parentActivityName=".MainActivity" />
   </application>
 
 </manifest>
