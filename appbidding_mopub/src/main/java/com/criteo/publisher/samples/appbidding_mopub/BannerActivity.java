@@ -4,10 +4,14 @@ import static com.criteo.publisher.samples.appbidding_mopub.CriteoSampleApplicat
 import static com.criteo.publisher.samples.appbidding_mopub.CriteoSampleApplication.MOPUB_BANNER_AD_UNIT_ID;
 
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.criteo.publisher.Criteo;
+import com.criteo.publisher.model.AdUnit;
+import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubView;
+import com.mopub.mobileads.MoPubView.BannerAdListener;
 import com.mopub.mobileads.MoPubView.MoPubAdSize;
 
 public class BannerActivity extends AppCompatActivity {
@@ -22,8 +26,58 @@ public class BannerActivity extends AppCompatActivity {
     moPubView = (MoPubView)findViewById(R.id.mopubView);
     moPubView.setAdUnitId(MOPUB_BANNER_AD_UNIT_ID);
     moPubView.setAdSize(MoPubAdSize.HEIGHT_50);
+    moPubView.setBannerAdListener(new BannerAdListener() {
+      @Override
+      public void onBannerLoaded(@NonNull MoPubView banner) {
+        refreshCriteoBids(banner, CRITEO_BANNER_AD_UNIT);
+      }
+
+      @Override
+      public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode) {
+        refreshCriteoBids(banner, CRITEO_BANNER_AD_UNIT);
+      }
+
+      @Override
+      public void onBannerClicked(MoPubView banner) {
+
+      }
+
+      @Override
+      public void onBannerExpanded(MoPubView banner) {
+
+      }
+
+      @Override
+      public void onBannerCollapsed(MoPubView banner) {
+
+      }
+    });
 
     displayBanner();
+  }
+
+  /**
+   * Make sure Criteo bids are refreshed when Banner ad unit is auto-refreshing.
+   * This method should be called from MoPub's onBannerLoaded and onBannerFailed listener
+   * For more information, please refer to https://publisherdocs.criteotilt.com/app/android/app-bidding/mopub/#handle-auto-refresh
+   *
+   * @param banner MoPubView object returned by the listener
+   * @param adUnit Criteo Ad Unit object corresponds to this Banner
+   */
+  private void refreshCriteoBids(MoPubView banner, AdUnit adUnit) {
+    // clean previous Criteo keywords starting with "crt_"
+    StringBuilder cleanedKeywords = new StringBuilder();
+    String keywords = banner.getKeywords();
+    String[] keywordsArray = keywords.split(",");
+    for(String keyword: keywordsArray) {
+      if (!keyword.startsWith("crt_")) {
+        cleanedKeywords.append(keyword).append(",");
+      }
+    }
+    banner.setKeywords(cleanedKeywords.toString().replaceAll(",$", ""));
+
+    // append new keywords, if available
+    Criteo.getInstance().setBidsForAdUnit(banner, adUnit);
   }
 
   @Override
