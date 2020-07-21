@@ -16,7 +16,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://pubsdk-bin.criteo.com/publishersdk/android" }
         maven { url "https://s3.amazonaws.com/moat-sdk-builds" } /* required for MoPub SDK integration */
     }
 }
