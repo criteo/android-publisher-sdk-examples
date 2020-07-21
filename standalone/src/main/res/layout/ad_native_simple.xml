@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+  
+  <com.criteo.publisher.advancednative.CriteoMediaView
+    android:id="@+id/ad_media"
+    android:layout_width="140dp"
+    android:layout_height="120dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:layout_toRightOf="@+id/ad_media">
+
+    <TextView
+      android:id="@+id/ad_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:textSize="18sp"
+      android:textStyle="bold"/>
+
+    <TextView
+      android:id="@+id/ad_description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="2"
+      android:layout_marginTop="5dp"/>
+
+    <TextView
+      android:id="@+id/ad_attribution"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:layout_marginTop="5dp"/>
+
+    <Button
+      android:id="@+id/ad_calltoaction"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:layout_gravity="right"/>
+
+  </LinearLayout>
+
+</RelativeLayout>

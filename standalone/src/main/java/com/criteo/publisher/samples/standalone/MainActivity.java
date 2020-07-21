@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Map<String, Class<? extends Activity>> samples = new LinkedHashMap<>();
     samples.put("Banner Sample", BannerActivity.class);
     samples.put("Interstitial Sample", InterstitialActivity.class);
+    samples.put("Native Sample (Simple)", NativeSimpleActivity.class);
 
     List<String> list = new ArrayList<>(samples.keySet());
     ArrayAdapter<String> adapter = new ArrayAdapter<>(this,

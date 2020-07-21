@@ -28,6 +28,10 @@
       android:label="Interstitial Sample - Standalone"
       android:name=".InterstitialActivity"
       android:parentActivityName=".MainActivity" />
+    <activity
+      android:label="Native Sample (Simple) - Standalone"
+      android:name=".NativeSimpleActivity"
+      android:parentActivityName=".MainActivity"/>
   </application>
 
 </manifest>
