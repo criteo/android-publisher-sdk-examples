@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     samples.put("Banner Sample", BannerActivity.class);
     samples.put("Interstitial Sample", InterstitialActivity.class);
     samples.put("Native Sample (Simple)", NativeSimpleActivity.class);
+    samples.put("Native Sample (RecyclerView)", NativeRecyclerViewActivity.class);
 
     List<String> list = new ArrayList<>(samples.keySet());
     ArrayAdapter<String> adapter = new ArrayAdapter<>(this,

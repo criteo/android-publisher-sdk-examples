@@ -32,6 +32,10 @@
       android:label="Native Sample (Simple) - Standalone"
       android:name=".NativeSimpleActivity"
       android:parentActivityName=".MainActivity"/>
+    <activity
+      android:label="Native Sample (RecyclerView) - Standalone"
+      android:name=".NativeRecyclerViewActivity"
+      android:parentActivityName=".MainActivity" />
   </application>
 
 </manifest>
