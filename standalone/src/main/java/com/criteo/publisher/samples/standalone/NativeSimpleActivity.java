@@ -88,7 +88,7 @@ public class NativeSimpleActivity extends AppCompatActivity {
 
     @Override
     public View createNativeView(Context context, ViewGroup viewGroup) {
-      return LayoutInflater.from(context).inflate(R.layout.ad_native_simple, viewGroup, false);
+      return LayoutInflater.from(context).inflate(R.layout.ad_native, viewGroup, false);
     }
 
     @Override
