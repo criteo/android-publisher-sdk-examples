@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  java-tests:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,5 +16,5 @@ jobs:
       - name: Set up Android SDK
         uses: malinskiy/action-android/install-sdk@release/0.0.7
 
-      - name: Build & Run Java tests
-        run: ./gradlew build
+      - name: Clean and Build
+        run: ./gradlew clean build
