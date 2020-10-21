@@ -81,17 +81,6 @@ public class BannerActivity extends AppCompatActivity {
    * @param adUnit Criteo Ad Unit object corresponds to this Banner
    */
   private void refreshCriteoBids(MoPubView banner, AdUnit adUnit) {
-    // clean previous Criteo keywords starting with "crt_"
-    StringBuilder cleanedKeywords = new StringBuilder();
-    String keywords = banner.getKeywords();
-    String[] keywordsArray = keywords.split(",");
-    for(String keyword: keywordsArray) {
-      if (!keyword.startsWith("crt_")) {
-        cleanedKeywords.append(keyword).append(",");
-      }
-    }
-    banner.setKeywords(cleanedKeywords.toString().replaceAll(",$", ""));
-
     // append new keywords, if available
     Criteo.getInstance().setBidsForAdUnit(banner, adUnit);
   }
