@@ -23,6 +23,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.criteo.publisher.Bid;
+import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
@@ -80,8 +82,15 @@ public class InterstitialActivity extends AppCompatActivity {
 
       }
     });
-    Criteo.getInstance().setBidsForAdUnit(moPubInterstitial, CRITEO_INTERSTITIAL_AD_UNIT);
-    moPubInterstitial.load();
+    Criteo.getInstance().loadBid(CRITEO_INTERSTITIAL_AD_UNIT, new BidResponseListener() {
+      @Override
+      public void onResponse(@Nullable Bid bid) {
+        if (bid != null) {
+          Criteo.getInstance().enrichAdObjectWithBid(moPubInterstitial, bid);
+        }
+        moPubInterstitial.load();
+      }
+    });
   }
 
   private void displayInterstitial() {
