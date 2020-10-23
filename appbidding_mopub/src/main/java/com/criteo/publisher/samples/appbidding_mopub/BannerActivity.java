@@ -23,6 +23,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.criteo.publisher.Bid;
+import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
 import com.criteo.publisher.model.AdUnit;
 import com.mopub.mobileads.MoPubErrorCode;
@@ -82,7 +84,14 @@ public class BannerActivity extends AppCompatActivity {
    */
   private void refreshCriteoBids(MoPubView banner, AdUnit adUnit) {
     // append new keywords, if available
-    Criteo.getInstance().setBidsForAdUnit(banner, adUnit);
+    Criteo.getInstance().loadBid(adUnit, new BidResponseListener() {
+      @Override
+      public void onResponse(@Nullable Bid bid) {
+        if (bid != null) {
+          Criteo.getInstance().enrichAdObjectWithBid(banner, bid);
+        }
+      }
+    });
   }
 
   @Override
@@ -92,8 +101,15 @@ public class BannerActivity extends AppCompatActivity {
   }
 
   private void displayBanner() {
-    Criteo.getInstance().setBidsForAdUnit(moPubView, CRITEO_BANNER_AD_UNIT);
-    moPubView.loadAd();
+    Criteo.getInstance().loadBid(CRITEO_BANNER_AD_UNIT, new BidResponseListener() {
+      @Override
+      public void onResponse(@Nullable Bid bid) {
+        if (bid != null) {
+          Criteo.getInstance().enrichAdObjectWithBid(moPubView, bid);
+        }
+        moPubView.loadAd();
+      }
+    });
   }
 
 }
