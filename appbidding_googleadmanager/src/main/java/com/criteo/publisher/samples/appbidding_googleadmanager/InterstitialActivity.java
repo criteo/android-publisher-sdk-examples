@@ -23,6 +23,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.criteo.publisher.Bid;
+import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
@@ -62,12 +65,20 @@ public class InterstitialActivity extends AppCompatActivity {
         displayInterstitialButton.setText("Ad Failed to Load");
       }
     });
-    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
 
-    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_INTERSTITIAL_AD_UNIT);
+    Criteo.getInstance().loadBid(CRITEO_INTERSTITIAL_AD_UNIT, new BidResponseListener() {
+      @Override
+      public void onResponse(@Nullable Bid bid) {
+        PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
 
-    PublisherAdRequest adRequest = builder.build();
-    publisherInterstitialAd.loadAd(adRequest);
+        if (bid != null) {
+          Criteo.getInstance().enrichAdObjectWithBid(builder, bid);
+        }
+
+        PublisherAdRequest request = builder.build();
+        publisherInterstitialAd.loadAd(request);
+      }
+    });
   }
 
   private void displayInterstitial() {
