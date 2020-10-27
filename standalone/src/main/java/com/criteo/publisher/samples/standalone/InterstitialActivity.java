@@ -23,7 +23,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.criteo.publisher.CriteoErrorCode;
 import com.criteo.publisher.CriteoInterstitial;
-import com.criteo.publisher.CriteoInterstitialAdDisplayListener;
 import com.criteo.publisher.CriteoInterstitialAdListener;
 
 public class InterstitialActivity extends AppCompatActivity {
@@ -46,12 +45,16 @@ public class InterstitialActivity extends AppCompatActivity {
 
   private void loadInterstitial() {
     // Initialize interstitial with interstitial ad unit
-    interstitial = new CriteoInterstitial(this.getBaseContext(), CRITEO_INTERSTITIAL_AD_UNIT);
+    interstitial = new CriteoInterstitial(CRITEO_INTERSTITIAL_AD_UNIT);
 
     interstitial.setCriteoInterstitialAdListener(new CriteoInterstitialAdListener() {
       @Override
-      public void onAdReceived() {
-        // called when Criteo Ad is received, but may not necessarily ready to be displayed.
+      public void onAdReceived(CriteoInterstitial criteoInterstitial) {
+        // called when Criteo Ad is received and ready to be displayed.
+        // at this point, CriteoInterstitial#isAdLoaded() always returns true and
+        // you are safe to call CriteoInterstitial#show()
+        displayInterstitialButton.setEnabled(true);
+        displayInterstitialButton.setText("Display Interstitial");
       }
 
       @Override
@@ -79,22 +82,6 @@ public class InterstitialActivity extends AppCompatActivity {
       @Override
       public void onAdLeftApplication() {
         // called when clicking on Criteo ad result in user leaving your application
-      }
-    });
-
-    interstitial.setCriteoInterstitialAdDisplayListener(new CriteoInterstitialAdDisplayListener() {
-      @Override
-      public void onAdReadyToDisplay() {
-        // called when Criteo Interstitial Ad is ready to be displayed
-        if (interstitial.isAdLoaded()) {
-          displayInterstitialButton.setEnabled(true);
-          displayInterstitialButton.setText("Display Interstitial");
-        }
-      }
-
-      @Override
-      public void onAdFailedToDisplay(CriteoErrorCode criteoErrorCode) {
-        // called when Criteo failed to retrieve Ad creatives
       }
     });
 

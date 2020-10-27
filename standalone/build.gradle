@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
-        versionName "3.10.0.0"
+        versionName "4.0.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -23,6 +23,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
     implementation 'com.google.android.gms:play-services-base:17.2.1'
-    implementation 'com.criteo.publisher:criteo-publisher-sdk:3.10.0'
+    implementation 'com.criteo.publisher:criteo-publisher-sdk:4.0.0'
     implementation 'com.squareup.picasso:picasso:2.0.0'
 }
