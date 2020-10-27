@@ -47,7 +47,7 @@ public class NativeSimpleActivity extends AppCompatActivity {
     nativeLoader.loadAd();
   }
 
-  private class MyNativeAdListener extends CriteoNativeAdListener {
+  private class MyNativeAdListener implements CriteoNativeAdListener {
 
     @Override
     public void onAdReceived(CriteoNativeAd nativeAd) {
