@@ -23,6 +23,9 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.criteo.publisher.Bid;
+import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
@@ -53,11 +56,18 @@ public class BannerActivity extends AppCompatActivity {
   }
 
   private void displayBanner() {
-    PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+    Criteo.getInstance().loadBid(CRITEO_BANNER_AD_UNIT, new BidResponseListener() {
+      @Override
+      public void onResponse(@Nullable Bid bid) {
+        PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
 
-    Criteo.getInstance().setBidsForAdUnit(builder, CRITEO_BANNER_AD_UNIT);
+        if (bid != null) {
+          Criteo.getInstance().enrichAdObjectWithBid(builder, bid);
+        }
 
-    PublisherAdRequest adRequest = builder.build();
-    publisherAdView.loadAd(adRequest);
+        PublisherAdRequest request = builder.build();
+        publisherAdView.loadAd(request);
+      }
+    });
   }
 }
