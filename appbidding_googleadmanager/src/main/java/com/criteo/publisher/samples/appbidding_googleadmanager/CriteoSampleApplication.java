@@ -34,6 +34,7 @@ public class CriteoSampleApplication extends Application {
   // To setup Criteo line items, please refer to https://publisherdocs.criteotilt.com/app/android/app-bidding/google-ad-manager/#ad-server-setup-banner-and-interstitial-
   static final String GAM_INTERSTITIAL_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
   static final String GAM_REWARDED_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
+  static final String GAM_REWARDED_INTERSTITIAL_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
 
   // This is a test Criteo Publisher ID that works for this sample app
   // In your application, update this value with your own Criteo Publisher ID
