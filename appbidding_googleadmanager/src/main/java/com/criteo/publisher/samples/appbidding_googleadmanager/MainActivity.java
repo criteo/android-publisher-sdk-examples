@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     samples.put("Interstitial Sample", InterstitialActivity.class);
+    samples.put("Rewarded Sample", RewardedActivity.class);
 
     initListView();
   }

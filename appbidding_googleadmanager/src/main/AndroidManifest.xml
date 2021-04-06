@@ -25,6 +25,9 @@
     <activity android:name=".InterstitialActivity"
       android:parentActivityName=".MainActivity"
       android:label="Interstitial Sample - Google Ad Manager"></activity>
+    <activity android:name=".RewardedActivity"
+      android:parentActivityName=".MainActivity"
+      android:label="Rewarded Sample - Google Ad Manager"></activity>
   </application>
 
 </manifest>
