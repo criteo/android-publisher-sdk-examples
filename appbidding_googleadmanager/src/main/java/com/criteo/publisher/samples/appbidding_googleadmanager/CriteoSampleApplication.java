@@ -35,6 +35,7 @@ public class CriteoSampleApplication extends Application {
   static final String GAM_INTERSTITIAL_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
   static final String GAM_REWARDED_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
   static final String GAM_REWARDED_INTERSTITIAL_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
+  static final String GAM_REWARDED_NATIVE_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
 
   // This is a test Criteo Publisher ID that works for this sample app
   // In your application, update this value with your own Criteo Publisher ID

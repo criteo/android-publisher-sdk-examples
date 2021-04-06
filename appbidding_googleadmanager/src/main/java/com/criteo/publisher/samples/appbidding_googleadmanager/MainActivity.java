@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     samples.put("Interstitial Video Sample", InterstitialActivity.class);
     samples.put("Rewarded Video Sample", RewardedActivity.class);
     samples.put("Rewarded Interstitial Video Sample (Beta - Need Approval)", RewardedInterstitialActivity.class);
+    samples.put("Native Video Sample", NativeActivity.class);
 
     initListView();
   }

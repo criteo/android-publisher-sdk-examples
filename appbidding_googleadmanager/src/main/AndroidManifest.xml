@@ -11,12 +11,12 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-
     <activity
       android:label="CriteoSample - Google Ad Manager"
       android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
+
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
@@ -31,7 +31,11 @@
     <activity
       android:label="Rewarded Interstitial Video Sample - Google Ad Manager"
       android:name=".RewardedInterstitialActivity"
-      android:parentActivityName=".MainActivity" ></activity>
+      android:parentActivityName=".MainActivity" />
+    <activity
+      android:label="Native Video Sample - Google Ad Manager"
+      android:name=".NativeActivity"
+      android:parentActivityName=".MainActivity" />
 
     <meta-data
       android:name="com.google.android.gms.ads.AD_MANAGER_APP"
