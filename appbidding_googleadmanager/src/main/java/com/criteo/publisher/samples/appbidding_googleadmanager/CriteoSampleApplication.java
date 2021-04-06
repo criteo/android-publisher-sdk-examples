@@ -32,15 +32,15 @@ public class CriteoSampleApplication extends Application {
   // Here we use Google Ad Manager test Ad Unit ID in order to demonstrate the integration
   // If you'd like to see Criteo banner in action, you need to use your own Ad Unit IDs, with Criteo line items targeting the Ad Units.
   // To setup Criteo line items, please refer to https://publisherdocs.criteotilt.com/app/android/app-bidding/google-ad-manager/#ad-server-setup-banner-and-interstitial-
-  static final String GAM_INTERSTITIAL_AD_UNIT_ID = "/6499/example/interstitial";
+  static final String GAM_INTERSTITIAL_AD_UNIT_ID = "/140800857/AppHBTest_VideoTest";
 
   // This is a test Criteo Publisher ID that works for this sample app
   // In your application, update this value with your own Criteo Publisher ID
-  private static final String CRITEO_PUBLISHER_ID = "B-000000";
+  private static final String CRITEO_PUBLISHER_ID = "B-056946";
 
   // Here we use test Criteo Ad Unit IDs in order to return test ads
   // In your application, Criteo Ad Unit IDs are typically the same as your Google Ad Manager's Ad Unit ID
-  private static final String CRITEO_INTERSTITIAL_AD_UNIT_ID = "6yws53jyfjgoq1ghnuqb";
+  private static final String CRITEO_INTERSTITIAL_AD_UNIT_ID = GAM_INTERSTITIAL_AD_UNIT_ID;
 
   static final InterstitialAdUnit CRITEO_INTERSTITIAL_AD_UNIT = new InterstitialAdUnit(CRITEO_INTERSTITIAL_AD_UNIT_ID);
 
