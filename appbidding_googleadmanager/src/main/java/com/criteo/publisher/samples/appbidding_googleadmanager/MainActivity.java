@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    samples.put("Interstitial Sample", InterstitialActivity.class);
-    samples.put("Rewarded Sample", RewardedActivity.class);
+    samples.put("Interstitial Video Sample", InterstitialActivity.class);
+    samples.put("Rewarded Video Sample", RewardedActivity.class);
 
     initListView();
   }
