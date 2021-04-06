@@ -19,9 +19,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".BannerActivity"
-      android:parentActivityName=".MainActivity"
-      android:label="Banner Sample - MoPub App Bidding"></activity>
     <activity android:name=".InterstitialActivity"
       android:parentActivityName=".MainActivity"
       android:label="Interstitial Sample - MoPub App Bidding"></activity>

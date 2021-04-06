@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    samples.put("Banner Sample", BannerActivity.class);
     samples.put("Interstitial Sample", InterstitialActivity.class);
 
     initMoPub();
