@@ -22,9 +22,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".BannerActivity"
-      android:parentActivityName=".MainActivity"
-      android:label="Banner Sample - Google Ad Manager"></activity>
     <activity android:name=".InterstitialActivity"
       android:parentActivityName=".MainActivity"
       android:label="Interstitial Sample - Google Ad Manager"></activity>
