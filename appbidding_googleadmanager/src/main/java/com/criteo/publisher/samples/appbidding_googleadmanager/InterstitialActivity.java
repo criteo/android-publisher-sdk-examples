@@ -21,19 +21,20 @@ import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSamp
 
 import android.os.Bundle;
 import android.widget.Button;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.criteo.publisher.Bid;
 import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
-import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 
 public class InterstitialActivity extends AppCompatActivity {
 
-  private PublisherInterstitialAd publisherInterstitialAd;
+  private AdManagerInterstitialAd adManagerInterstitialAd;
   private Button displayInterstitialButton;
 
   @Override
@@ -48,42 +49,47 @@ public class InterstitialActivity extends AppCompatActivity {
   }
 
   private void loadInterstitial() {
-    publisherInterstitialAd = new PublisherInterstitialAd(this);
-    publisherInterstitialAd.setAdUnitId(GAM_INTERSTITIAL_AD_UNIT_ID);
-    publisherInterstitialAd.setAdListener(new AdListener() {
-      @Override
-      public void onAdLoaded() {
-        super.onAdLoaded();
-        displayInterstitialButton.setEnabled(true);
-        displayInterstitialButton.setText("Display Interstitial");
-      }
-
-      @Override
-      public void onAdFailedToLoad(int i) {
-        super.onAdFailedToLoad(i);
-        displayInterstitialButton.setEnabled(false);
-        displayInterstitialButton.setText("Ad Failed to Load");
-      }
-    });
-
     Criteo.getInstance().loadBid(CRITEO_INTERSTITIAL_AD_UNIT, new BidResponseListener() {
       @Override
       public void onResponse(@Nullable Bid bid) {
-        PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+        AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
 
         if (bid != null) {
           Criteo.getInstance().enrichAdObjectWithBid(builder, bid);
         }
 
-        PublisherAdRequest request = builder.build();
-        publisherInterstitialAd.loadAd(request);
+        AdManagerAdRequest request = builder.build();
+
+        AdManagerInterstitialAd.load(
+            InterstitialActivity.this,
+            GAM_INTERSTITIAL_AD_UNIT_ID,
+            request,
+            adManagerInterstitialAdLoadCallback()
+        );
       }
     });
   }
 
+  private AdManagerInterstitialAdLoadCallback adManagerInterstitialAdLoadCallback() {
+    return new AdManagerInterstitialAdLoadCallback() {
+      @Override
+      public void onAdLoaded(@NonNull AdManagerInterstitialAd adManagerInterstitialAd) {
+        InterstitialActivity.this.adManagerInterstitialAd = adManagerInterstitialAd;
+        displayInterstitialButton.setEnabled(true);
+        displayInterstitialButton.setText("Display Interstitial");
+      }
+
+      @Override
+      public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+        displayInterstitialButton.setEnabled(false);
+        displayInterstitialButton.setText("Ad Failed to Load");
+      }
+    };
+  }
+
   private void displayInterstitial() {
-    if (publisherInterstitialAd.isLoaded()) {
-      publisherInterstitialAd.show();
+    if (adManagerInterstitialAd != null) {
+      adManagerInterstitialAd.show(this);
       displayInterstitialButton.setEnabled(false);
     }
   }
