@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven { url "https://s3.amazonaws.com/moat-sdk-builds" } /* required for MoPub SDK integration */
     }
