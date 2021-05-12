@@ -28,30 +28,30 @@ import com.criteo.publisher.Bid;
 import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
-import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
 
 public class BannerActivity extends AppCompatActivity {
 
-  private PublisherAdView publisherAdView;
+  private AdManagerAdView adManagerAdView;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_banner);
 
-    publisherAdView = new PublisherAdView(this);
-    publisherAdView.setAdSizes(AdSize.BANNER);
-    publisherAdView.setAdUnitId(GAM_BANNER_AD_UNIT_ID);
+    adManagerAdView = new AdManagerAdView(this);
+    adManagerAdView.setAdSizes(AdSize.BANNER);
+    adManagerAdView.setAdUnitId(GAM_BANNER_AD_UNIT_ID);
     FrameLayout publisherAdViewContainer = findViewById(R.id.publisherAdViewContainer);
-    publisherAdViewContainer.addView(publisherAdView);
+    publisherAdViewContainer.addView(adManagerAdView);
 
     displayBanner();
   }
 
   @Override
   protected void onDestroy() {
-    publisherAdView.destroy();
+    adManagerAdView.destroy();
     super.onDestroy();
   }
 
@@ -59,14 +59,14 @@ public class BannerActivity extends AppCompatActivity {
     Criteo.getInstance().loadBid(CRITEO_BANNER_AD_UNIT, new BidResponseListener() {
       @Override
       public void onResponse(@Nullable Bid bid) {
-        PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+        AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
 
         if (bid != null) {
           Criteo.getInstance().enrichAdObjectWithBid(builder, bid);
         }
 
-        PublisherAdRequest request = builder.build();
-        publisherAdView.loadAd(request);
+        AdManagerAdRequest request = builder.build();
+        adManagerAdView.loadAd(request);
       }
     });
   }
