@@ -58,6 +58,7 @@ public class CriteoSampleApplication extends Application {
     try {
       new Criteo.Builder(this, CRITEO_PUBLISHER_ID)
           .adUnits(criteoAdUnits)
+              .debugLogsEnabled(true)
           .init();
     } catch (CriteoInitException e) {
       Log.d("Ads", "Failed to initialize Criteo SDK", e);
