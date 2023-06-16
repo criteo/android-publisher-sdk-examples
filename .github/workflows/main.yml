@@ -23,4 +23,4 @@ jobs:
         uses: malinskiy/action-android/install-sdk@release/0.0.8
 
       - name: Clean and Build
-        run: ./gradlew clean build
+        run: ./gradlew clean build --warning-mode all --stacktrace
