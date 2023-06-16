@@ -37,5 +37,6 @@
       android:name=".NativeRecyclerViewActivity"
       android:parentActivityName=".MainActivity" />
   </application>
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 </manifest>

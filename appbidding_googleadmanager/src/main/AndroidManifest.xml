@@ -29,5 +29,6 @@
       android:parentActivityName=".MainActivity"
       android:label="Interstitial Sample - Google Ad Manager"></activity>
   </application>
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 </manifest>
