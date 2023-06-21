@@ -1,2 +1,2 @@
-include ':appbidding_googleadmanager', ':appbidding_mopub', ':standalone'
+include ':appbidding_googleadmanager', ':standalone'
 rootProject.name = 'CriteoSamples'
