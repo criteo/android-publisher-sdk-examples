@@ -21,7 +21,6 @@ import static com.criteo.publisher.samples.appbidding_googleadmanager.CriteoSamp
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowMetrics;
 import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
@@ -30,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.criteo.publisher.Bid;
 import com.criteo.publisher.BidResponseListener;
 import com.criteo.publisher.Criteo;
+import com.criteo.publisher.model.BannerAdUnit;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.admanager.AdManagerAdRequest;
 import com.google.android.gms.ads.admanager.AdManagerAdView;
@@ -49,14 +49,19 @@ public class BannerActivity extends AppCompatActivity {
     publisherAdViewContainer = findViewById(R.id.publisherAdViewContainer);
 
     AdSize adSize = getAdSize();
-    Log.d("CriteoSdk", String.format("%d x %d", adSize.getWidth(), adSize.getHeight()));
 
     adManagerAdView = new AdManagerAdView(this);
     adManagerAdView.setAdSizes(adSize, AdSize.BANNER);
     adManagerAdView.setAdUnitId(GAM_BANNER_AD_UNIT_ID);
     publisherAdViewContainer.addView(adManagerAdView);
 
-    displayBanner();
+    // for standard banners
+    //displayBanner(CRITEO_BANNER_AD_UNIT);
+
+    // for adaptive banners
+    displayBanner(getCriteoBannerAdUnitFromGAMAdaptiveBanner(
+            CRITEO_BANNER_AD_UNIT.getAdUnitId(),
+            adSize));
   }
 
   // Determine the screen width (less decorations) to use for the ad width.
@@ -87,8 +92,18 @@ public class BannerActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
-  private void displayBanner() {
-    Criteo.getInstance().loadBid(CRITEO_BANNER_AD_UNIT, new BidResponseListener() {
+  // Dynamically create an instance of Criteo BannerAdUnit based on GAM adaptive banner size
+  // All of these 4 sizes must be defined in GAM line items: 300x50, 320x50, 300x100, 320x100
+  private BannerAdUnit getCriteoBannerAdUnitFromGAMAdaptiveBanner(String adUnitId, AdSize adSize) {
+    int width = adSize.getWidth() >= 320 ? 320 : adSize.getWidth() >= 300 ? 300 : adSize.getWidth();
+    int height = adSize.getHeight() >= 100 ? 100 : adSize.getHeight() >= 50 ? 50 : adSize.getHeight();
+    BannerAdUnit bannerAdUnit = new BannerAdUnit(adUnitId,
+            new com.criteo.publisher.model.AdSize(width, height));
+    return bannerAdUnit;
+  }
+
+  private void displayBanner(BannerAdUnit bannerAdUnit) {
+    Criteo.getInstance().loadBid(bannerAdUnit, new BidResponseListener() {
       @Override
       public void onResponse(@Nullable Bid bid) {
         AdManagerAdRequest.Builder builder = new AdManagerAdRequest.Builder();
